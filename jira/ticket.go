@@ -47,5 +47,8 @@ func (c Client) GetTicketByKey(id string) (*JiraTicket, error) {
 	if je != nil {
 		return nil, je
 	}
+	if len(list.Issues) == 0 {
+		return nil, nil
+	}
 	return &list.Issues[0], nil
 }
