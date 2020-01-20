@@ -1,4 +1,4 @@
-package jira_sdk
+package jira
 
 import (
 	"encoding/json"
@@ -29,7 +29,7 @@ type IssueType struct {
 	Description string `json:"description"`
 	IconUrl     string `json:"iconUrl"`
 	Name        string `json:"name"`
-	SubTask     string `json:"subtask"`
+	SubTask     bool   `json:"subtask"`
 }
 
 func (c Client) GetTicketByKey(id string) (*JiraTicket, error) {
