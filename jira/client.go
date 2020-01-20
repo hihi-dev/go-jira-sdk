@@ -23,7 +23,7 @@ func CreateJiraClient(username, password, baseUrl string) *Client {
 func (c *Client) doRequest(method string, path string, body io.Reader) (*http.Response, error) {
 	c.headers["Accept"] = "application/json"
 	auth := base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.username, c.password)))
-	c.headers["Authorization"] = "Bearer " + auth
+	c.headers["Authorization"] = "Basic " + auth
 	url := c.baseUrl + path
 	client := &http.Client{}
 	log.Println("jira-sdk Request:", method, url)
