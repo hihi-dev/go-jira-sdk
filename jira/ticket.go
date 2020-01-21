@@ -12,16 +12,16 @@ type TicketSearchResults struct {
 }
 
 type JiraTicket struct {
-	Id          string `json:"id"`
-	Self        string `json:"self"`
-	Key         string `json:"key"`
-	Summary     string `json:"summary"`
-	Description string `json:"description"`
-	Fields      Fields `json:"fields"`
+	Id     string `json:"id"`
+	Self   string `json:"self"`
+	Key    string `json:"key"`
+	Fields Fields `json:"fields"`
 }
 
 type Fields struct {
-	IssueType IssueType `json:"issuetype"`
+	IssueType   IssueType `json:"issuetype"`
+	Summary     string    `json:"summary"`
+	Description string    `json:"description"`
 }
 
 type IssueType struct {
