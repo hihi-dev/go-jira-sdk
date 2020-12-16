@@ -9,21 +9,23 @@ import (
 )
 
 type Client struct {
-	username string
-	password string
-	baseUrl  string
-	headers  map[string]string
+	auth    string
+	baseUrl string
+	headers map[string]string
 }
 
 func CreateJiraClient(username, password, baseUrl string) *Client {
-	return &Client{username, password, baseUrl, map[string]string{}}
+	return &Client{base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", username, password))), baseUrl, map[string]string{}}
+}
+
+func CreateJiraClientWithToken(authToken, baseUrl string) *Client {
+	return &Client{authToken, baseUrl, map[string]string{}}
 }
 
 // Perform an action on the API against this path
 func (c *Client) doRequest(method string, path string, body io.Reader) (*http.Response, error) {
 	c.headers["Accept"] = "application/json"
-	auth := base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.username, c.password)))
-	c.headers["Authorization"] = "Basic " + auth
+	c.headers["Authorization"] = "Basic " + c.auth
 	url := c.baseUrl + path
 	client := &http.Client{}
 	log.Println("jira-sdk Request:", method, url)
