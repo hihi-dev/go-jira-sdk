@@ -4,7 +4,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -28,7 +27,6 @@ func (c *Client) doRequest(method string, path string, body io.Reader) (*http.Re
 	c.headers["Authorization"] = "Basic " + c.auth
 	url := c.baseUrl + path
 	client := &http.Client{}
-	log.Println("jira-sdk Request:", method, url)
 	req, _ := http.NewRequest(method, url, body)
 	for k, v := range c.headers {
 		req.Header.Add(k, v)
